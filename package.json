@@ -1,0 +1,28 @@
+{
+  "name": "learn-starter",
+  "homepage": "http://zxygallery.com",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p $PORT",
+    "p-format": "prisma format",
+    "p-generate": "prisma generate"
+  },
+  "dependencies": {
+    "@auth0/nextjs-auth0": "^1.5.0",
+    "@prisma/client": "^4.9.0",
+    "chart.js": "^3.5.0",
+    "faker": "5.5.3",
+    "next": "^13.0.0",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^4.0.1",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "7.31.0",
+    "eslint-config-next": "^13.0.0",
+    "prisma": "^4.9.0"
+  }
+}

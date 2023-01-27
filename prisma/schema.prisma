@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model meditation3 {
+  time_stamp    String   @db.String(24)
+  date          DateTime @db.Date
+  time          String   @db.String(8)
+  counter_value BigInt   @id
+  increment     BigInt
+}
