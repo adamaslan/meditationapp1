@@ -1,15 +1,14 @@
-import React from "react";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
+
 import { Bar } from "react-chartjs-2";
-// import faker from "faker";
 
 ChartJS.register(
   CategoryScale,
@@ -21,7 +20,8 @@ ChartJS.register(
 );
 
 export const options = {
-  responsive: true,
+  maintainAspectRatio: false,
+  responsive: false,
   plugins: {
     legend: {
       position: "top",
@@ -32,10 +32,6 @@ export const options = {
     },
   },
 };
-let numbers = [];
-for (let i = 0; i <= 100; i++) {
-  numbers.push(i);
-}
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
@@ -44,17 +40,17 @@ export const data = {
   datasets: [
     {
       label: "Dataset 1",
-      data: [1, 3, 5, 9, 10],
+      data: [680, 1108, 1200, 1098, 967, 800, 30],
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
     {
       label: "Dataset 2",
-      data: numbers,
+      data: [680, 1108, 1200, 1098, 967, 800, 600],
       backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
   ],
 };
 
-export function BarGraph2() {
-  return <Bar options={options} data={data} />;
+export function BarChart3() {
+  return <Bar options={options} data={data} width={600} height={370} />;
 }
