@@ -158,7 +158,7 @@ export default function Home() {
           justify-content: center;
           flex-wrap: wrap;
 
-          max-width: 800px;
+          max-width: 600px;
           margin-top: 3rem;
         }
 
