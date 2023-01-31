@@ -8,12 +8,9 @@ export default function CurrentShows() {
     <>
       <Layout>
         <Head>
-          <title>Current Show "Sea Friends" at ZXY Gallery in Bushwick</title>
+          <title>Meditation Graph</title>
           <link rel="icon" href="/public/favicon.ico" />
-          <meta
-            name="description"
-            content="Hear about all our current exhibit Sea Friends at ZXY Gallery in Bushwick, Brooklyn"
-          />
+          <meta name="description" content="Mean, Mode, Median type shih" />
           <meta
             property="og:image"
             content="https://res.cloudinary.com/adamaslan/image/upload/v1666992137/ZXY%20/zxy-logo_cos9hl.jpg"
@@ -24,20 +21,18 @@ export default function CurrentShows() {
           <h2>"Sea Friends"</h2>
           <div className="flex-container">
             <div className="flex-item">
-              <Image
+              {/* <Image
                 alt="art show"
                 width={1072}
                 height={872}
                 src="https://res.cloudinary.com/adamaslan/image/upload/v1666992137/ZXY%20/Choral-show3_a4mibl.jpg"
-              />
+              /> */}
             </div>
           </div>
-          <p>ZXY Gallery presents "Holiday Market"</p>
+          <p>A Graph</p>
           <p>
-            "Holiday Market" is a group show focused on bringing together
-            artists that want to sell their work in a market-esque environment.
-            We hope to have future markets. Contact us if you would like to
-            participate on instagram.
+            Days of the week, times of the day, by month, focused periods (more
+            than 4 counts in an hour)
           </p>
 
           <h2>
