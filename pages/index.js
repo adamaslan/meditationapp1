@@ -51,9 +51,9 @@ export default function Home() {
             <p>Our most fun new feature</p>
           </a>
 
-          <a href="/posts/currentshow" className="card">
-            <h3>Current Show &rarr;</h3>
-            <p>"Sea Friends"</p>
+          <a href="/posts/anothergraph" className="card">
+            <h3>More Graphs &rarr;</h3>
+            <p>Fun Fun Fun</p>
           </a>
 
           <a href="/posts/pastfeatures" className="card">
