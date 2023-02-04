@@ -3,6 +3,7 @@ import Head from "next/head";
 import Layout from "../../components/layout";
 import { getAllUsers } from "../../components/Search2";
 import { useState } from "react";
+import { MeditationData } from "../../components/DaJson";
 
 export default function PastShows({ results }) {
   // console.log(results);
@@ -48,16 +49,18 @@ export default function PastShows({ results }) {
             <Link href="/">Back to home</Link>
           </h2>
 
-          <input onChange={handleChange} name="search" />
+          {/* <input onChange={handleChange} name="search" />
           <button type={"button"} onClick={handleSearch}>
             Search
-          </button>
-          {state.searchResults.map((result) => (
+          </button> */}
+          {/* {state.searchResults.map((result) => (
             <li>
               <span>{result.date} </span>
               {result.time}
             </li>
-          ))}
+          ))} */}
+          <MeditationData meditationData={results} />
+
           {/* <h2>Search our database for artists:</h2> */}
           {/* const searchResults = []; */}
         </article>
@@ -66,12 +69,34 @@ export default function PastShows({ results }) {
   );
 }
 
-export const getServerSideProps = async () => {
-  const results = await getAllUsers();
-  const cleanResult = results.map((date) => ({
-    ...date,
-    counter_value: "abc",
-    increment: "abc",
-  }));
-  return { props: { results: JSON.parse(JSON.stringify(cleanResult)) } };
-};
+export async function getServerSideProps() {
+  try {
+    const meditationData = await getDataFromDB();
+    const cleanResult = meditationData.map((meditation) => ({
+      ...meditation,
+      id: "abc",
+    }));
+    return {
+      props: {
+        meditationData: cleanResult,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      props: {
+        error: "Error occured while fetching meditation data from database.",
+      },
+    };
+  }
+}
+
+// export const getServerSideProps = async () => {
+//   const results = await getAllUsers();
+//   const cleanResult = results.map((date) => ({
+//     ...date,
+//     counter_value: "abc",
+//     increment: "abc",
+//   }));
+//   return { props: { results: JSON.parse(JSON.stringify(cleanResult)) } };
+// };
