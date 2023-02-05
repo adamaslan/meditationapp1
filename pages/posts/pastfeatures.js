@@ -1,26 +1,27 @@
 import Link from "next/link";
 import Head from "next/head";
 import Layout from "../../components/layout";
-import { getAllUsers } from "../../components/Search2";
+// import { getAllUsers } from "../../components/Search2";
 import { useState } from "react";
 import { MeditationData } from "../../components/DaJson";
+import { BarChart4 } from "../../components/BarChart4";
 
 export default function PastShows({ results }) {
   // console.log(results);
   // console.log({ results });
-  const [state, setState] = useState({ search: "", searchResults: [] });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  // const [state, setState] = useState({ search: "", searchResults: [] });
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
 
-    setState((s) => ({ ...s, [name]: value }));
-  };
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    const result = await fetch(`/api/search?searchDB=${state.search}`)
-      .then((j) => j.json())
-      .then((r) => r);
-    setState((s) => ({ ...s, searchResults: result }));
-  };
+  //   setState((s) => ({ ...s, [name]: value }));
+  // };
+  // const handleSearch = async (e) => {
+  //   e.preventDefault();
+  //   const result = await fetch(`/api/search?searchDB=${state.search}`)
+  //     .then((j) => j.json())
+  //     .then((r) => r);
+  //   setState((s) => ({ ...s, searchResults: result }));
+  // };
   return (
     <>
       <Layout>
@@ -59,7 +60,7 @@ export default function PastShows({ results }) {
               {result.time}
             </li>
           ))} */}
-          <MeditationData meditationData={results} />
+          <BarChart4 />
 
           {/* <h2>Search our database for artists:</h2> */}
           {/* const searchResults = []; */}
@@ -69,27 +70,27 @@ export default function PastShows({ results }) {
   );
 }
 
-export async function getServerSideProps() {
-  try {
-    const meditationData = await getDataFromDB();
-    const cleanResult = meditationData.map((meditation) => ({
-      ...meditation,
-      id: "abc",
-    }));
-    return {
-      props: {
-        meditationData: cleanResult,
-      },
-    };
-  } catch (err) {
-    console.log(err);
-    return {
-      props: {
-        error: "Error occured while fetching meditation data from database.",
-      },
-    };
-  }
-}
+// export const getServerSideProps = async () => {
+//   try {
+//     const meditationData = await getDataFromDB();
+//     const cleanResult = meditationData.map((meditation) => ({
+//       ...meditation,
+//       id: "abc",
+//     }));
+//     return {
+//       props: {
+//         meditationData: cleanResult,
+//       },
+//     };
+//   } catch (err) {
+//     console.log(err);
+//     return {
+//       props: {
+//         error: "Error occured while fetching meditation data from database.",
+//       },
+//     };
+//   }
+// };
 
 // export const getServerSideProps = async () => {
 //   const results = await getAllUsers();

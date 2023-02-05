@@ -65,7 +65,7 @@ export const data = {
   ],
 };
 
-export function BarChart3({ meditationData }) {
+export function BarChart4({ meditationData }) {
   meditationData.forEach((item) => {
     // Extract the day of the week from the time_stamp field
     const date = new Date(item.time_stamp);
@@ -86,16 +86,16 @@ export function BarChart3({ meditationData }) {
   return <Bar options={options} data={data} width={600} height={370} />;
 }
 
-export async function getServerSideProps() {
-  const meditationData = await getDataFromDB();
+// export async function getServerSideProps() {
+//   const meditationData = await getDataFromDB();
 
-  return {
-    props: {
-      meditationData,
-    },
-  };
-}
-export async function getServerSideProps() {
+//   return {
+//     props: {
+//       meditationData,
+//     },
+//   };
+// }
+export const getServerSideProps = async () => {
   try {
     const meditationData = await getDataFromDB();
     const cleanResult = meditationData.map((meditation) => ({
@@ -115,4 +115,4 @@ export async function getServerSideProps() {
       },
     };
   }
-}
+};
