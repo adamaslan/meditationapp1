@@ -2,8 +2,8 @@ import { PrismaClient } from "@prisma/client";
 
 export const prisma = new PrismaClient();
 export const getDataFromDB = async () => {
-  const data = await prisma.meditation3.findMany();
-  return data;
+const data = await prisma.meditation3.findMany();
+return data;
 };
 
 // const getDataFromDB = async () => {

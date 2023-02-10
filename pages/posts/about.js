@@ -2,7 +2,9 @@ import Link from "next/link";
 import Head from "next/head";
 import Layout from "../../components/layout";
 
-export default function About() {
+import { getDataFromDB } from "../../components/Search3";
+export default function About({ meditation3 }) {
+  console.table(meditation3);
   return (
     <>
       <Layout>
@@ -45,6 +47,31 @@ export default function About() {
           React, CSS, HTML. It is super fast via its integration with Vercel,
           which also allows for testing before deployment. It runs via github.
         </h2>
+        <div>
+          <h1>Meditation 4</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Time Stamp</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Counter Value</th>
+                <th>Increment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from(meditation3).map((meditation4) => (
+                <tr key={meditation4.counter_value}>
+                  <td>{meditation4.time_stamp}</td>
+                  <td>{meditation4.date}</td>
+                  <td>{meditation4.time}</td>
+                  <td>{meditation4.counter_value}</td>
+                  <td>{meditation4.increment}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <h2>
           <Link href="/">Back to home</Link>
         </h2>
@@ -52,3 +79,41 @@ export default function About() {
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  const meditation3 = await getDataFromDB();
+  const cleanResult = meditation3.map((data) => ({
+    time_stamp: data.time_stamp.toString(),
+    date: data.date,
+    time: data.time,
+    counter_value: "abc",
+    increment: data.increment.toString(),
+  }));
+  return {
+    props: {
+      meditation3: JSON.parse(JSON.stringify(cleanResult)),
+    },
+  };
+};
+
+// export const getServerSideProps = async () => {
+//   const results = await getAllUsers();
+//   const cleanResult = results.map((artist) => ({ ...artist, id: "abc" }));
+//   return { props: { results: JSON.parse(JSON.stringify(cleanResult)) } };
+// };
+
+// export const getServerSideProps = async () => {
+//   const meditation3 = await getDataFromDB();
+//   const cleanResult = meditation3.map((data) => ({
+//     time_stamp: data.time_stamp,
+//     date: data.date,
+//     time: data.time,
+//     counter_value: "abc",
+//     increment: data.increment,
+//   }));
+//   return {
+//     props: {
+//       meditation3: JSON.parse(JSON.stringify(cleanResult)),
+//     },
+//   };
+// };
