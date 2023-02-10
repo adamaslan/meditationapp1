@@ -65,8 +65,8 @@ export const data = {
   ],
 };
 
-export function BarChart4({ meditationData }) {
-  meditationData.forEach((item) => {
+export function BarChart4({ meditation3 }) {
+  meditation3.forEach((item) => {
     // Extract the day of the week from the time_stamp field
     const date = new Date(item.time_stamp);
     const dayOfWeek = daysOfWeek[date.getUTCDay()];
@@ -86,6 +86,22 @@ export function BarChart4({ meditationData }) {
   return <Bar options={options} data={data} width={600} height={370} />;
 }
 
+export const getServerSideProps = async () => {
+  const meditation3 = await getDataFromDB();
+  const cleanResult = meditation3.map((data) => ({
+    time_stamp: data.time_stamp.toString(),
+    date: data.date,
+    time: data.time,
+    counter_value: "abc",
+    increment: data.increment.toString(),
+  }));
+  return {
+    props: {
+      meditation3: JSON.parse(JSON.stringify(cleanResult)),
+    },
+  };
+};
+
 // export async function getServerSideProps() {
 //   const meditationData = await getDataFromDB();
 
@@ -95,24 +111,25 @@ export function BarChart4({ meditationData }) {
 //     },
 //   };
 // }
-export const getServerSideProps = async () => {
-  try {
-    const meditationData = await getDataFromDB();
-    const cleanResult = meditationData.map((meditation) => ({
-      ...meditation,
-      id: "abc",
-    }));
-    return {
-      props: {
-        meditationData: cleanResult,
-      },
-    };
-  } catch (err) {
-    console.log(err);
-    return {
-      props: {
-        error: "Error occured while fetching meditation data from database.",
-      },
-    };
-  }
-};
+
+// export const getServerSideProps = async () => {
+//   try {
+//     const meditationData = await getDataFromDB();
+//     const cleanResult = meditationData.map((meditation) => ({
+//       ...meditation,
+//       id: "abc",
+//     }));
+//     return {
+//       props: {
+//         meditationData: cleanResult,
+//       },
+//     };
+//   } catch (err) {
+//     console.log(err);
+//     return {
+//       props: {
+//         error: "Error occured while fetching meditation data from database.",
+//       },
+//     };
+//   }
+// };
