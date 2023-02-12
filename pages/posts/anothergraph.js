@@ -4,45 +4,6 @@ import Layout from "../../components/layout";
 
 import { getDataFromDB } from "../../components/Search3";
 
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  maintainAspectRatio: false,
-  responsive: false,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-    title: {
-      display: true,
-      text: "Meditation 3 by Day of Week",
-    },
-  },
-};
-
 const daysOfWeek = [
   "Sunday",
   "Monday",
@@ -53,48 +14,93 @@ const daysOfWeek = [
   "Saturday",
 ];
 
-// Initialize an object to store the data for each day of the week
-const dataByDayOfWeek = {
-  Sunday: 0,
-  Monday: 0,
-  Tuesday: 0,
-  Wednesday: 0,
-  Thursday: 0,
-  Friday: 0,
-  Saturday: 0,
-};
+// // Initialize an object to store the data for each day of the week
+// const dataByDayOfWeek = {
+//   Sunday: 0,
+//   Monday: 0,
+//   Tuesday: 0,
+//   Wednesday: 0,
+//   Thursday: 0,
+//   Friday: 0,
+//   Saturday: 0,
+// };
 
-export const data = {
-  labels: daysOfWeek,
-  datasets: [
-    {
-      label: "Meditation 3",
-      data: [],
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-  ],
-};
+// // export const data = {
+// //   labels: daysOfWeek,
+// //   datasets: [
+// //     {
+// //       label: "Meditation 3",
+// //       data: [],
+// //       backgroundColor: "rgba(255, 99, 132, 0.5)",
+// //     },
+// //   ],
+// // };
 
-export function BarChart4({ meditation3 }) {
+// export const  BarChart5 = ({ meditation3 }) => {
+//     // console.log(meditation3);
+//     meditation3.forEach((item) => {
+//       // Extract the day of the week from the time_stamp field
+//       const date = new Date(item.time_stamp);
+//       const dayOfWeek = daysOfWeek[date.getUTCDay()];
+
+//       // Add the increment value to the total for that day of the week
+//       dataByDayOfWeek[dayOfWeek] += item.increment;
+//       console.log(dataByDayOfWeek);
+//     });
+
+//     // Convert the dataByDayOfWeek object into an array for use in the chart
+//     const dataArray = [];
+//     daysOfWeek.forEach((day) => {
+//       dataArray.push(dataByDayOfWeek[day]);
+//     });
+
+//     data.datasets[0].data = dataArray;
+
+//     // return <Bar options={options} data={data} width={600} height={370} />;
+//   }
+
+//   const TicksPerDay = ({ dataByDayOfWeek }) => {
+//     return (
+//       <div>
+//         {Object.entries(dataByDayOfWeek).map(([day, count]) => (
+//           <div key={day}>
+//             {day}: {count} ticks
+//           </div>
+//         ))}
+//       </div>
+//     );
+
+const TicksPerDay = ({ meditation3 }) => {
+  let dataByDayOfWeek = {
+    Sunday: 0,
+    Monday: 0,
+    Tuesday: 0,
+    Wednesday: 0,
+    Thursday: 0,
+    Friday: 0,
+    Saturday: 0,
+  };
+
+  const daysOfWeek = Object.keys(dataByDayOfWeek);
+
   meditation3.forEach((item) => {
-    // Extract the day of the week from the time_stamp field
     const date = new Date(item.time_stamp);
     const dayOfWeek = daysOfWeek[date.getUTCDay()];
 
-    // Add the increment value to the total for that day of the week
     dataByDayOfWeek[dayOfWeek] += item.increment;
   });
 
-  // Convert the dataByDayOfWeek object into an array for use in the chart
-  const dataArray = [];
-  daysOfWeek.forEach((day) => {
-    dataArray.push(dataByDayOfWeek[day]);
-  });
+  return (
+    <div>
+      {Object.entries(dataByDayOfWeek).map(([day, count]) => (
+        <div key={day}>
+          {day}: {count} ticks
+        </div>
+      ))}
+    </div>
+  );
+};
 
-  data.datasets[0].data = dataArray;
-
-  return <Bar options={options} data={data} width={600} height={370} />;
-}
 export default function CurrentShows({ meditation3 }) {
   return (
     <>
@@ -109,9 +115,10 @@ export default function CurrentShows({ meditation3 }) {
           />
         </Head>
         <article>
-          <h1>Current Show</h1>
-          <h2>"Sea Friends"</h2>
-          <BarChart4 meditation3={meditation3} />
+          <h1>Most Meditative Days of the Week"</h1>
+          <TicksPerDay />
+
+          {/* <BarChart5 meditation3={meditation3} /> */}
           <div className="flex-container">
             <div className="flex-item">
               {/* <Image
