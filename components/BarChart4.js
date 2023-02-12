@@ -19,9 +19,33 @@ ChartJS.register(
   Legend
 );
 
+// export const options = {
+//   maintainAspectRatio: false,
+//   responsive: false,
+//   plugins: {
+//     legend: {
+//       position: "top",
+//     },
+//     title: {
+//       display: true,
+//       text: "Meditation 3 by Day of Week",
+//     },
+//   },
+// };
+
 export const options = {
   maintainAspectRatio: false,
   responsive: false,
+  scales: {
+    yAxes: [
+      {
+        ticks: {
+          min: 0,
+          max: 400,
+        },
+      },
+    ],
+  },
   plugins: {
     legend: {
       position: "top",
@@ -74,7 +98,7 @@ export function BarChart4({ meditation3 }) {
     // Add the increment value to the total for that day of the week
     dataByDayOfWeek[dayOfWeek] += item.increment;
   });
-
+  console.log(dataByDayOfWeek);
   // Convert the dataByDayOfWeek object into an array for use in the chart
   const dataArray = [];
   daysOfWeek.forEach((day) => {
@@ -82,7 +106,7 @@ export function BarChart4({ meditation3 }) {
   });
 
   data.datasets[0].data = dataArray;
-
+  console.log(dataArray);
   return <Bar options={options} data={data} width={600} height={370} />;
 }
 
