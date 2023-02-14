@@ -4,15 +4,15 @@ import Layout from "../../components/layout";
 
 import { getDataFromDB } from "../../components/Search3";
 
-const daysOfWeek = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+// const daysOfWeek = [
+//   "Sunday",
+//   "Monday",
+//   "Tuesday",
+//   "Wednesday",
+//   "Thursday",
+//   "Friday",
+//   "Saturday",
+// ];
 
 // // Initialize an object to store the data for each day of the week
 // const dataByDayOfWeek = {
@@ -25,16 +25,16 @@ const daysOfWeek = [
 //   Saturday: 0,
 // };
 
-// // export const data = {
-// //   labels: daysOfWeek,
-// //   datasets: [
-// //     {
-// //       label: "Meditation 3",
-// //       data: [],
-// //       backgroundColor: "rgba(255, 99, 132, 0.5)",
-// //     },
-// //   ],
-// // };
+// export const data = {
+//   labels: daysOfWeek,
+//   datasets: [
+//     {
+//       label: "Meditation 3",
+//       data: [],
+//       backgroundColor: "rgba(255, 99, 132, 0.5)",
+//     },
+//   ],
+// };
 
 // export const  BarChart5 = ({ meditation3 }) => {
 //     // console.log(meditation3);
@@ -59,49 +59,49 @@ const daysOfWeek = [
 //     // return <Bar options={options} data={data} width={600} height={370} />;
 //   }
 
-//   const TicksPerDay = ({ dataByDayOfWeek }) => {
-//     return (
-//       <div>
-//         {Object.entries(dataByDayOfWeek).map(([day, count]) => (
-//           <div key={day}>
-//             {day}: {count} ticks
-//           </div>
-//         ))}
-//       </div>
-//     );
+// const TicksPerDay = ({ dataByDayOfWeek }) => {
+//   return (
+//     <div>
+//       {Object.entries(dataByDayOfWeek).map(([day, count]) => (
+//         <div key={day}>
+//           {day}: {count} ticks
+//         </div>
+//       ))}
+//     </div>
+//   );
 
-const TicksPerDay = ({ meditation3 }) => {
-  let dataByDayOfWeek = {
-    Sunday: 0,
-    Monday: 0,
-    Tuesday: 0,
-    Wednesday: 0,
-    Thursday: 0,
-    Friday: 0,
-    Saturday: 0,
-  };
+// const TicksPerDay = ({ meditation3 }) => {
+//   let dataByDayOfWeek = {
+//     Sunday: 0,
+//     Monday: 0,
+//     Tuesday: 0,
+//     Wednesday: 0,
+//     Thursday: 0,
+//     Friday: 0,
+//     Saturday: 0,
+//   };
 
-  const daysOfWeek = Object.keys(dataByDayOfWeek);
-  // currently messed up
-  // {
-  //   meditation3.forEach((item) => {
-  //     const date = new Date(item.time_stamp);
-  //     const dayOfWeek = daysOfWeek[date.getUTCDay()];
+// const daysOfWeek = Object.keys(dataByDayOfWeek);
+// currently messed up
+// {
+//   meditation3.forEach((item) => {
+//     const date = new Date(item.time_stamp);
+//     const dayOfWeek = daysOfWeek[date.getUTCDay()];
 
-  //     dataByDayOfWeek[dayOfWeek] += item.increment;
-  //   });
-  // }
+//     dataByDayOfWeek[dayOfWeek] += item.increment;
+//   });
+// }
 
-  return (
-    <div>
-      {Object.entries(meditation3).map(([day, count]) => (
-        <div key={day}>
-          {day}: {count} ticks
-        </div>
-      ))}
-    </div>
-  );
-};
+// return (
+//     <div>
+//       {Object.entries(meditation3).map(([day, count]) => (
+//         <div key={day}>
+//           {day}: {count} ticks
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
 
 export default function CurrentShows({ meditation3 }) {
   return (
@@ -118,7 +118,7 @@ export default function CurrentShows({ meditation3 }) {
         </Head>
         <article>
           <h1>Most Meditative Days of the Week"</h1>
-          <TicksPerDay />
+          {/* <TicksPerDay /> */}
 
           {/* <BarChart5 meditation3={meditation3} /> */}
           <div className="flex-container">
@@ -138,12 +138,6 @@ export default function CurrentShows({ meditation3 }) {
           </p>
 
           <h2>
-            <p>
-              Find more on our instagram{" "}
-              <a href="https://www.instagram.com/zxygallery/">
-                <a>@zxygallery </a>
-              </a>{" "}
-            </p>
             <Link href="/">Back to home</Link>
           </h2>
         </article>
