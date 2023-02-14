@@ -82,17 +82,19 @@ const TicksPerDay = ({ meditation3 }) => {
   };
 
   const daysOfWeek = Object.keys(dataByDayOfWeek);
+  // currently messed up
+  // {
+  //   meditation3.forEach((item) => {
+  //     const date = new Date(item.time_stamp);
+  //     const dayOfWeek = daysOfWeek[date.getUTCDay()];
 
-  meditation3.forEach((item) => {
-    const date = new Date(item.time_stamp);
-    const dayOfWeek = daysOfWeek[date.getUTCDay()];
-
-    dataByDayOfWeek[dayOfWeek] += item.increment;
-  });
+  //     dataByDayOfWeek[dayOfWeek] += item.increment;
+  //   });
+  // }
 
   return (
     <div>
-      {Object.entries(dataByDayOfWeek).map(([day, count]) => (
+      {Object.entries(meditation3).map(([day, count]) => (
         <div key={day}>
           {day}: {count} ticks
         </div>
