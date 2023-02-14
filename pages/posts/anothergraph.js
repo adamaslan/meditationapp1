@@ -1,10 +1,57 @@
 import Link from "next/link";
 import Head from "next/head";
 import Layout from "../../components/layout";
-
+import { useState, useEffect } from "react";
 import { getDataFromDB } from "../../components/Search3";
+export function dateUi({ meditation3 }) {
+  console.log(meditation3);
+  const [columns, setColumns] = useState(
+    Array(7)
+      .fill()
+      .map(() => [])
+  );
 
-// const daysOfWeek = [
+  useEffect(() => {
+    const newColumns = Array(7)
+      .fill()
+      .map(() => []);
+    meditation3.forEach((element) => {
+      const dayOfWeek = new Date(element.time_stamp).getDay();
+      newColumns[dayOfWeek].push(element);
+    });
+    const sortedColumns = newColumns.map((column) =>
+      column.sort((a, b) => new Date(b.time_stamp) - new Date(a.time_stamp))
+    );
+    setColumns(sortedColumns);
+  }, [meditation3]);
+  return (
+    <div style={{ display: "flex" }}>
+      {columns.map((column, index) => (
+        <ul key={index}>
+          <h3>
+            {
+              [
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+              ][index]
+            }
+          </h3>
+          {column.map((element, index) => (
+            <li key={index}>{element}</li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  );
+}
+
+{
+  /* // const daysOfWeek = [
 //   "Sunday",
 //   "Monday",
 //   "Tuesday",
@@ -12,7 +59,8 @@ import { getDataFromDB } from "../../components/Search3";
 //   "Thursday",
 //   "Friday",
 //   "Saturday",
-// ];
+// ]; */
+}
 
 // // Initialize an object to store the data for each day of the week
 // const dataByDayOfWeek = {
@@ -118,6 +166,7 @@ export default function CurrentShows({ meditation3 }) {
         </Head>
         <article>
           <h1>Most Meditative Days of the Week"</h1>
+          <dateUi />
           {/* <TicksPerDay /> */}
 
           {/* <BarChart5 meditation3={meditation3} /> */}
@@ -161,3 +210,20 @@ export const getServerSideProps = async () => {
     },
   };
 };
+
+// export const getServerSideProps = async () => {
+//   const json = await getDataFromDB();
+//   const newColumns = Array(7).fill().map(() => []);
+//   json.forEach((element) => {
+//     const dayOfWeek = new Date(element.timestamp).getDay();
+//     newColumns[dayOfWeek].push(element);
+//   });
+//   const columns = newColumns.map((column) =>
+//     column.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+//   );
+//   return {
+//     props: {
+//       columns,
+//     },
+//   };
+// };
