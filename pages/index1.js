@@ -2,7 +2,7 @@
 // import Link from "next/link";
 
 export default function Home1() {
-  return (//nothing)
+  return <>{/* nothing */}</>;
 }
 
 //     <div className="container">
