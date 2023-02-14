@@ -1,8 +1,10 @@
 // import Head from "next/head";
 // import Link from "next/link";
 
-// export default function Home() {
-//   return (
+export default function Home1() {
+  return (//nothing)
+}
+
 //     <div className="container">
 //       <Head>
 //         <title>ZXY Gallery</title>

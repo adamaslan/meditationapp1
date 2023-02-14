@@ -1,6 +1,6 @@
-// import Link from "next/link";
-// import Head from "next/head";
-// import Layout from "../../components/layout";
+import Link from "next/link";
+import Head from "next/head";
+import Layout from "../../components/layout";
 
 // import { getDataFromDB } from "../../components/Search3";
 
@@ -136,55 +136,63 @@
 
 //   return <Bar options={options} data={data} width={600} height={370} />;
 // }
-// const CurrentShows = ({ meditation3 })=> {
-
-//   return (
-//     <>
-//       <Layout>
-//         <Head>
-//           <title>Meditation Graph</title>
-//           <link rel="icon" href="/public/favicon.ico" />
-//           <meta name="description" content="Mean, Mode, Median type shih" />
-//           <meta
-//             property="og:image"
-//             content="https://res.cloudinary.com/adamaslan/image/upload/v1666992137/ZXY%20/zxy-logo_cos9hl.jpg"
-//           />
-//         </Head>
-//         <article>
-//           <h1>Most Meditative Days of the Week"</h1>
-// <TicksPerDay />
-
-//           <BarChart5 meditation3={meditation3} />
-//           <div className="flex-container">
-//             <div className="flex-item">
-//               {/* <Image
+export const CurrentShows = () => {
+  // { meditation3 }
+  return (
+    <>
+      <Layout>
+        <Head>
+          <title>Meditation Graph</title>
+          <link rel="icon" href="/public/favicon.ico" />
+          <meta name="description" content="Mean, Mode, Median type shih" />
+          <meta
+            property="og:image"
+            content="https://res.cloudinary.com/adamaslan/image/upload/v1666992137/ZXY%20/zxy-logo_cos9hl.jpg"
+          />
+        </Head>
+        //{" "}
+        <article>
+          // <h1>Most Meditative Days of the Week"</h1>
+          {/* // <TicksPerDay /> */}
+          // <BarChart5 meditation3={meditation3} />
+          //{" "}
+          <div className="flex-container">
+            //{" "}
+            <div className="flex-item">
+              //{" "}
+              {/* <Image
 //                 alt="art show"
 //                 width={1072}
 //                 height={872}
 //                 src="https://res.cloudinary.com/adamaslan/image/upload/v1666992137/ZXY%20/Choral-show3_a4mibl.jpg"
 //               /> */}
-//             </div>
-//           </div>
-//           <p>A Graph</p>
-//           <p>
-//             Days of the week, times of the day, by month, focused periods (more
-//             than 4 counts in an hour)
-//           </p>
-
-//           <h2>
-//             <p>
-//               Find more on our instagram{" "}
-//               <a href="https://www.instagram.com/zxygallery/">
-//                 <a>@zxygallery </a>
-//               </a>{" "}
-//             </p>
-//             <Link href="/">Back to home</Link>
-//           </h2>
-//         </article>
-//       </Layout>
-//     </>
-//   );
-// }
+              //{" "}
+            </div>
+            //{" "}
+          </div>
+          // <p>A Graph</p>
+          //{" "}
+          <p>
+            // Days of the week, times of the day, by month, focused periods
+            (more // than 4 counts in an hour) //{" "}
+          </p>
+          //{" "}
+          <h2>
+            <p>
+              Find more on our instagram{" "}
+              <a href="https://www.instagram.com/zxygallery/">
+                <a>@zxygallery </a>
+              </a>{" "}
+            </p>
+            // <Link href="/">Back to home</Link>
+            //{" "}
+          </h2>
+          //{" "}
+        </article>
+      </Layout>
+    </>
+  );
+};
 
 // export const getServerSideProps = async () => {
 //   const meditation3 = await getDataFromDB();
