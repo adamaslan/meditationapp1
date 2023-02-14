@@ -154,7 +154,7 @@ export const CurrentShows = () => {
         <article>
           // <h1>Most Meditative Days of the Week"</h1>
           {/* // <TicksPerDay /> */}
-          // <BarChart5 meditation3={meditation3} />
+          {/* <BarChart5 meditation3={meditation3} /> */}
           //{" "}
           <div className="flex-container">
             //{" "}
