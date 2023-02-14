@@ -8,9 +8,9 @@ datasource db {
 }
 
 model meditation3 {
-  time_stamp    String   @db.String(24)
-  date          DateTime @db.Date
-  time          String   @db.String(8)
-  counter_value BigInt   @id
+  time_stamp    String   @id
+  date          DateTime
+  time          String  
+  counter_value BigInt  
   increment     BigInt
 }
