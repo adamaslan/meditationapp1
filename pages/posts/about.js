@@ -4,12 +4,12 @@ import Layout from "../../components/layout";
 
 import { getDataFromDB } from "../../components/Search3";
 export default function About({ meditation3 }) {
-  console.table(meditation3);
+  // console.table(meditation3);
   return (
     <>
       <Layout>
         <Head>
-          <title>About ZXY</title>
+          <title>About Meditation App</title>
           <link rel="icon" href="/public/favicon.ico" />
           <meta
             name="description"
@@ -21,25 +21,23 @@ export default function About({ meditation3 }) {
             content="https://res.cloudinary.com/adamaslan/image/upload/v1666992137/ZXY%20/zxy-logo_cos9hl.jpg"
           />
         </Head>
-        <h1>About Zxy Gallery</h1>
+        <h1>about the project</h1>
         <br />{" "}
-        <h2>
-          {" "}
-          We are always looking for artists, especially artists that can show
-          work outdoors. Contact us on instagram{" "}
-          <a href="https://www.instagram.com/zxygallery/">@zxygallery </a>.{" "}
-        </h2>
         <h2>
           {" "}
           This mediation app helps people see when they are meditative the most.
           <br /> One technique is using a counter to keep track of breathing.
-          Currently, we recommend stating the days counter whenever you remember
-          to start it. Subsequently, increase the counter after every two
-          outbreaths during the session. If you leave the app or get lost in
+          currently, we recommend stating the days counter whenever you remember
+          to start it. subsequently, increase the counter after every two
+          outbreaths during the session. if you leave the app or get lost in
           thought or another activity, but then remember to be aware of
           breathing, increase the counter and go back to increasing the counter
           after every 2nd outbreath.
         </h2>
+        <p>
+          the hope is to build graphs by days of the week, times of the day, by
+          month, focused periods (more than 4 counts in an hour)
+        </p>
         <br />
         <br />
         <h2>
@@ -79,14 +77,13 @@ export default function About({ meditation3 }) {
     </>
   );
 }
-
 export const getServerSideProps = async () => {
   const meditation3 = await getDataFromDB();
   const cleanResult = meditation3.map((data) => ({
     time_stamp: data.time_stamp.toString(),
     date: data.date,
     time: data.time,
-    counter_value: "abc",
+    counter_value: data.counter_value.toString(),
     increment: data.increment.toString(),
   }));
   return {
@@ -95,7 +92,6 @@ export const getServerSideProps = async () => {
     },
   };
 };
-
 // export const getServerSideProps = async () => {
 //   const results = await getAllUsers();
 //   const cleanResult = results.map((artist) => ({ ...artist, id: "abc" }));
