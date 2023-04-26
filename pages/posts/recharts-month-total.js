@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getDataFromDB } from '../../components/Search3';
-import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function MeditationPage({ meditation3 }) {
     const [meditationData, setMeditationData] = useState(meditation3);
@@ -9,9 +9,8 @@ export default function MeditationPage({ meditation3 }) {
         ...d,
         counter_value: parseInt(d.counter_value),
         increment: parseInt(d.increment),
-        date: isNaN(Date.parse(d.date)) ? d.date : new Date(d.date),
+        date: isNaN(Date.parse(d.date)) ? d.date : new Date(`${d.date} 2023`),
     }));
-    console.log(data);
 
     useEffect(() => {
         setMeditationData(meditation3);
@@ -23,32 +22,33 @@ export default function MeditationPage({ meditation3 }) {
 
     const dataByMonth = data.reduce((acc, curr) => {
         const month = curr.date.getMonth() + 1;
-        acc[month] = acc[month] ? acc[month] + curr.counter_value : curr.counter_value;
+        const value = parseInt(curr.counter_value) - parseInt(curr.increment);
+        acc[month] = acc[month] ? acc[month] + value : value;
         return acc;
     }, {});
 
-    const percentageData = Object.keys(dataByMonth).map((month) => ({
+    const increaseData = Object.keys(dataByMonth).map((month) => ({
         month: parseInt(month),
-        monthName: new Date(2022, month - 1, 1).toLocaleString('default', { month: 'long' }),
-        percentage: (dataByMonth[month] / data.reduce((acc, curr) => acc + curr.counter_value, 0)) * 100,
+        increase: dataByMonth[month],
     }));
+
 
     return (
         <div>
             <h1>Meditation Chart</h1>
-            <BarChart width={1160} height={500} data={percentageData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" tickFormatter={(month) => percentageData.find((item) => item.month === month).monthName} />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="percentage" fill="#8884d8" />
-            </BarChart>
+            <ResponsiveContainer width="100%" height={500}>
+                <BarChart data={increaseData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="increase" fill="#8884d8" />
+                </BarChart>
+            </ResponsiveContainer>
         </div>
     );
 }
-
-
 
 export const getServerSideProps = async () => {
     const meditation3 = await getDataFromDB();
