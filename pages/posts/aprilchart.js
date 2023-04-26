@@ -71,7 +71,7 @@ export async function getServerSideProps() {
         },
     };
 }
-=======
+
 import { useEffect, useRef } from "react";
 import { getDataFromDB } from "../../components/Search3";
 import * as d3 from "d3";
