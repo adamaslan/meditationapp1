@@ -9,8 +9,8 @@ export function DateUi({ meditation3 }) {
     Array(7)
       .fill()
       .map(() => [])
-  );
-
+  )
+;
   useEffect(() => {
     const newColumns = Array(7)
       .fill()
