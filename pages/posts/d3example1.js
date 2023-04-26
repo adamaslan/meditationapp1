@@ -27,7 +27,7 @@ const createGraph = async () => {
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  let data = await d3.csv(require("./data.csv"));
+//   let data = await d3.csv(require("./data.csv"));
 
   data.forEach((d) => {
     d.date = parseTime(d.date);
