@@ -4,7 +4,7 @@ import Layout from "../../components/layout";
 
 import { getDataFromDB } from "../../components/Search3";
 export default function About({ meditation3 }) {
-  // console.table(meditation3);
+  console.table(meditation3);
   return (
     <>
       <Layout>
@@ -58,7 +58,7 @@ export default function About({ meditation3 }) {
               </tr>
             </thead>
             <tbody>
-              {Array.from(meditation3).map((meditation4) => (
+              {meditation3.map((meditation4) => (
                 <tr key={meditation4.counter_value}>
                   <td>{meditation4.time_stamp}</td>
                   <td>{meditation4.date}</td>
@@ -67,6 +67,8 @@ export default function About({ meditation3 }) {
                   <td>{meditation4.increment}</td>
                 </tr>
               ))}
+              This code will achieve the same result as the original code but
+              without unnecessarily calling the Array.from() method.
             </tbody>
           </table>
         </div>
