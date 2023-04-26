@@ -1,9 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+const { PrismaClient } = require('@prisma/client');
+
 
 export const prisma = new PrismaClient();
 export const getDataFromDB = async () => {
-const data = await prisma.meditation3.findMany();
-return data;
+    return await prisma.meditation3.findMany();
+
+
 };
 
 // const getDataFromDB = async () => {

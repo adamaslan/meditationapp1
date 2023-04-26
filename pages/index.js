@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { BarChart3 } from "../components/BarChart3";
+// import {ExampleChart} from "../components/exampleChart";
 import Table from "../components/Table";
 export default function Home() {
   return (
@@ -63,6 +64,7 @@ export default function Home() {
           </a>
         </div>
         <BarChart3 />
+        {/*<ExampleChart />*/}
         <Table />
       </main>
 
