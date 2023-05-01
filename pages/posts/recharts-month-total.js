@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getDataFromDB } from '../../components/Search3';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Link from "next/link";
 
 export default function MeditationPage({ meditation3 }) {
     const [meditationData, setMeditationData] = useState(meditation3);
@@ -9,7 +10,7 @@ export default function MeditationPage({ meditation3 }) {
         ...d,
         counter_value: parseInt(d.counter_value),
         increment: parseInt(d.increment),
-        date: isNaN(Date.parse(d.date)) ? d.date : new Date(`${d.date} 2023`),
+        date: isNaN(Date.parse(d.date)) ? d.date : new Date(`${d.date} 2022`),
     }));
 
     useEffect(() => {
@@ -46,6 +47,8 @@ export default function MeditationPage({ meditation3 }) {
                     <Bar dataKey="increase" fill="#8884d8" />
                 </BarChart>
             </ResponsiveContainer>
+
+            <Link href="/">Back to home</Link>
         </div>
     );
 }

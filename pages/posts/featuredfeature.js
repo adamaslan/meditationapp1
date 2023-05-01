@@ -1,72 +1,68 @@
-import Link from "next/link";
-import Head from "next/head";
-import Layout from "../../components/layout";
-// import { Data } from "../../components/Data";
-import { BarGraph2 } from "../../components/BarGraph2";
-import { BarChart3 } from "../../components/BarChart3";
+import { useEffect, useState } from 'react';
+import { getDataFromDB } from '../../components/Search3';
+import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 
-import { useState } from "react";
-export default function FeaturedWork() {
-  // const data = {
-  //   labels: ["Red", "Orange", "Blue"],
-  //   // datasets is an array of objects where each object represents a set of data to display corresponding to the labels above. for brevity, we'll keep it at one object
-  //   datasets: [
-  //     {
-  //       label: "Popularity of colours",
-  //       data: [55, 23, 96],
-  //       // you can set indiviual colors for each bar
-  //       backgroundColor: [
-  //         "rgba(255, 255, 255, 0.6)",
-  //         "rgba(255, 255, 255, 0.6)",
-  //         "rgba(255, 255, 255, 0.6)",
-  //       ],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
+export default function MeditationPage({ meditation3 }) {
+  const [meditationData, setMeditationData] = useState(meditation3);
 
-  // const [chartData, setChartData] = useState({
-  //   labels: Data.map((data) => data.year),
-  //   datasets: [
-  //     {
-  //       label: "Users Gained ",
-  //       data: Data.map((data) => data.userGain),
-  //       backgroundColor: [
-  //         "rgba(75,192,192,1)",
-  //         "#ecf0f1",
-  //         "#50AF95",
-  //         "#f3ba2f",
-  //         "#2a71d0",
-  //       ],
-  //       borderColor: "black",
-  //       borderWidth: 2,
-  //     },
-  //   ],
-  // });
+  const data = meditation3.map((d) => ({
+    ...d,
+    counter_value: parseInt(d.counter_value),
+    increment: parseInt(d.increment),
+    date: isNaN(Date.parse(d.date)) ? d.date : new Date(d.date),
+  }));
+
+  useEffect(() => {
+    setMeditationData(meditation3);
+  }, [meditation3]);
+
+  if (meditationData.length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  const dataByDayOfWeek = data.reduce((acc, curr) => {
+    const dayOfWeek = curr.date.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
+    acc[dayOfWeek] = acc[dayOfWeek] ? acc[dayOfWeek] + curr.increment : curr.increment;
+    return acc;
+  }, {});
+
+  const dayOfWeekTotals = [
+    { dayOfWeek: 0, dayOfWeekName: 'Sunday', total: dataByDayOfWeek[0] || 0 },
+    { dayOfWeek: 1, dayOfWeekName: 'Monday', total: dataByDayOfWeek[1] || 0 },
+    { dayOfWeek: 2, dayOfWeekName: 'Tuesday', total: dataByDayOfWeek[2] || 0 },
+    { dayOfWeek: 3, dayOfWeekName: 'Wednesday', total: dataByDayOfWeek[3] || 0 },
+    { dayOfWeek: 4, dayOfWeekName: 'Thursday', total: dataByDayOfWeek[4] || 0 },
+    { dayOfWeek: 5, dayOfWeekName: 'Friday', total: dataByDayOfWeek[5] || 0 },
+    { dayOfWeek: 6, dayOfWeekName: 'Saturday', total: dataByDayOfWeek[6] || 0 },
+  ];
+
   return (
-    <>
-      <Layout>
-        <Head>
-          <title>Med3 Work</title>
-          <link rel="icon" href="/public/favicon.ico" />
-          <meta
-            name="description"
-            content="Hear about this exquisite work for sale at ZXY"
-          />
-          <meta
-            property="og:image"
-            content="https://res.cloudinary.com/adamaslan/image/upload/v1666992137/ZXY%20/zxy-logo_cos9hl.jpg"
-          />
-        </Head>
-
-        <h1>med Work</h1>
-        <BarChart3 />
-        <BarGraph2 />
-
-        <h2>a chart</h2>
-
-        <Link href="/">Back to home</Link>
-      </Layout>
-    </>
+      <div>
+        <h1>Days of the week</h1>
+        <BarChart width={1160} height={500} data={dayOfWeekTotals}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="dayOfWeek" tickFormatter={(dayOfWeek) => dayOfWeekTotals.find((item) => item.dayOfWeek === dayOfWeek).dayOfWeekName} />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="total" fill="#8884d8" />
+        </BarChart>
+      </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const meditation3 = await getDataFromDB();
+  const cleanResult = meditation3.map((data) => ({
+    time_stamp: data.time_stamp.toString(),
+    date: new Date(data.date),
+    time: data.time,
+    counter_value: data.counter_value.toString(),
+    increment: data.increment.toString(),
+  }));
+  return {
+    props: {
+      meditation3: JSON.parse(JSON.stringify(cleanResult)),
+    },
+  };
+};

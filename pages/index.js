@@ -62,6 +62,15 @@ export default function Home() {
             <h3>Past Features &rarr;</h3>
             <p>Explore Past Features</p>
           </a>
+          <a href="/posts/recharts-month" className="card">
+            <h3>Monthly percentage &rarr;</h3>
+            <p>recharts - complete data connection</p>
+          </a>
+          <a href="/posts/recharts-month-total-nu" className="card">
+            <h3>Monthly total &rarr;</h3>
+            <p>recharts - complete data connection</p>
+            <p>recharts - next goal by day - then time of day</p>
+          </a>
         </div>
         <BarChart3 />
         {/*<ExampleChart />*/}
