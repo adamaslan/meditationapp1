@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getDataFromDB } from '../../components/Search3';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import Link from "next/link";
+import dayjs from "dayjs";
 
 export default function MeditationPage({ meditation3 }) {
     const [meditationData, setMeditationData] = useState(meditation3);
@@ -43,7 +44,15 @@ export default function MeditationPage({ meditation3 }) {
             totalIncrements: total,
         }))
     );
+    const januaryStamps = data.reduce((acc, { time_stamp }) => {
+        const timestamp = dayjs(time_stamp);
+        if (timestamp.month() === 0) {
+            acc.push(time_stamp);
+        }
+        return acc;
+    }, []);
 
+    console.log(januaryStamps, "poop");
 
 
     return (
