@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getDataFromDB } from '../../components/Search3';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
+import Link from "next/link";
 
 export default function MeditationPage({ meditation3 }) {
   const [meditationData, setMeditationData] = useState(meditation3);
@@ -20,11 +21,20 @@ export default function MeditationPage({ meditation3 }) {
     return <div>Loading...</div>;
   }
 
+
+
   const dataByDayOfWeek = data.reduce((acc, curr) => {
     const dayOfWeek = curr.date.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
     acc[dayOfWeek] = acc[dayOfWeek] ? acc[dayOfWeek] + curr.increment : curr.increment;
     return acc;
   }, {});
+console.log(dataByDayOfWeek);
+  // const dataByDayOfWeek = data.reduce((acc, { date, increment }) => {
+  //   const dayOfWeek = date.getDay();
+  //   acc[dayOfWeek] = (acc[dayOfWeek] || 0) + increment;
+  //   return acc;
+  // }, []);
+
 
   const dayOfWeekTotals = [
     { dayOfWeek: 0, dayOfWeekName: 'Sunday', total: dataByDayOfWeek[0] || 0 },
@@ -47,6 +57,16 @@ export default function MeditationPage({ meditation3 }) {
           <Legend />
           <Bar dataKey="total" fill="#8884d8" />
         </BarChart>
+        <a href="/posts/featuredfeature" className="card">
+          <h3>Featured App Feature &rarr;</h3>
+          <p>Our most fun new feature</p>
+        </a>
+
+        <a href="/posts/anothergraph" className="card">
+          <h3>More Graphs &rarr;</h3>
+          <p>Fun Fun Fun</p>
+        </a>
+        <Link href="/">Back to home</Link>
       </div>
   );
 }
