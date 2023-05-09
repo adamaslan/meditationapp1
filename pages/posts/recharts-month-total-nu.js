@@ -88,7 +88,15 @@ export default function MeditationPage({ meditation3 }) {
                 <Tooltip />
                 <Bar dataKey="hour" fill="#8884d8" />
             </BarChart>
-            );
+            );  <a href="/posts/featuredfeature" className="card">
+            <h3>Featured App Feature &rarr;</h3>
+            <p>Our most fun new feature</p>
+        </a>
+
+            <a href="/posts/anothergraph2.js" className="card">
+                <h3>More Graphs &rarr;</h3>
+                <p>Fun Fun Fun</p>
+            </a>
             <Link href="/">Back to home</Link>
         </div>
     );
