@@ -44,15 +44,31 @@ export default function MeditationPage({ meditation3 }) {
             totalIncrements: total,
         }))
     );
-    const januaryStamps = data.reduce((acc, { time_stamp }) => {
-        const timestamp = dayjs(time_stamp);
-        if (timestamp.month() === 0) {
-            acc.push(time_stamp);
+    // const januaryStamps = data.reduce((acc, { time_stamp }) => {
+    //     const timestamp = dayjs(time_stamp);
+    //     if (timestamp.month() === 0) {
+    //         acc.push(time_stamp);
+    //     }
+    //     return acc;
+    // }, []);
+    //
+    // console.log(januaryStamps, "poop");
+
+    const januaryHours = data.reduce((acc, { time_stamp }) => {
+        const month = new Date(time_stamp).getMonth();
+        if (month === 0) {
+            const hour = new Date(time_stamp).getHours();
+            acc[hour] = (acc[hour] || 0) + 1;
         }
         return acc;
     }, []);
 
-    console.log(januaryStamps, "poop");
+    const top24Hours = Object.entries(januaryHours)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 24)
+        .map(([hour]) => parseInt(hour));
+
+    console.log(top24Hours);
 
 
     return (
@@ -66,7 +82,13 @@ export default function MeditationPage({ meditation3 }) {
                 <Legend />
                 <Bar dataKey="totalIncrements" fill="#8884d8" />
             </BarChart>
-
+            <BarChart width={600} height={300} data={top24Hours.map(hour => ({ hour }))}>
+                <XAxis dataKey="hour" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="hour" fill="#8884d8" />
+            </BarChart>
+            );
             <Link href="/">Back to home</Link>
         </div>
     );
