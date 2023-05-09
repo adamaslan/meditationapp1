@@ -3,7 +3,8 @@ import { getDataFromDB } from '../../components/Search3';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import Link from "next/link";
 
-export default function MeditationPage({ meditation3 }) { const [meditationData1, setMeditationData1] = useState(meditation3);
+export default function MeditationPage({ meditation3 }) {
+    const [meditationData1, setMeditationData1] = useState(meditation3);
     // Parse the date data to a valid format
 
     const parseDate = (date) => {
@@ -50,8 +51,9 @@ export default function MeditationPage({ meditation3 }) { const [meditationData1
         count: hourCounts[hour]
     }));
 
-    return (
-        <BarChart width={600} height={400} data={chartData}>
+    return (   <div>
+        <h1>Meditation Chart - Checkins by Hour of Day</h1>
+        <BarChart width={900} height={600} data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="hour" />
             <YAxis />
@@ -59,7 +61,17 @@ export default function MeditationPage({ meditation3 }) { const [meditationData1
             <Legend />
             <Bar dataKey="count" fill="#8884d8" />
         </BarChart>
-    <Link href="/">Back to home</Link>
+            <a href="/posts/featuredfeature" className="card">
+                <h3>Featured App Feature &rarr;</h3>
+                <p>Our most fun new feature</p>
+            </a>
+
+            <a href="/posts/anothergraph2.js" className="card">
+                <h3>More Graphs &rarr;</h3>
+                <p>Fun Fun Fun</p>
+            </a>
+            <Link href="/">Back to home</Link>
+        </div>
     );
 };
 
