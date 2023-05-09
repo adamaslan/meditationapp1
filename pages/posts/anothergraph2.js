@@ -4,19 +4,13 @@ import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'rec
 import Link from "next/link";
 
 export default function MeditationPage({ meditation3 }) { const [meditationData1, setMeditationData1] = useState(meditation3);
-    // Parse the date data to a valid format
-
-    const parseDate = (date) => {
-        const [year, month, day] = date.split("-");
-        return new Date(year, month - 1, day);
-    };
 
     const data = meditation3.map((d) => ({
         ...d,
         counter_value: parseInt(d.counter_value),
         time: parseInt(d.time), // changed time_stamp to time
         increment: parseInt(d.increment),
-        date: isNaN(Date.parse(d.date)) ? parseDate(d.date) : new Date(d.date),
+        date: isNaN(Date.parse(d.date)) ? d.date : new Date(d.date),
     }));
 
     useEffect(() => {
@@ -29,20 +23,16 @@ export default function MeditationPage({ meditation3 }) { const [meditationData1
         return <div>Loading...</div>;
     }
 
-// Initialize hourCounts with all keys from 0 to 23 and zero values
-    const hourCounts = Array.from({length: 24}, (_, i) => i).reduce((acc, hour) => {
-        acc[hour] = 0;
-        return acc;
-    }, {});
 
-// Update hourCounts with the actual counts from the data
-    data.forEach(({ time }) => {
-        // Use the time data as the key for the hourCounts object
-        const hour = time;
+
+    const hourCounts = data.reduce((acc, { time }) => { // changed time_stamp to time
+        const hour = new Date(time).getHours(); // changed time_stamp to time
 
         // Increment the count for the hour
-        hourCounts[hour]++;
-    });
+        acc[hour] = (acc[hour] || 0) + 1;
+
+        return acc;
+    }, {});
 
 // Prepare data for the bar chart
     const chartData = Object.keys(hourCounts).map(hour => ({
@@ -59,7 +49,6 @@ export default function MeditationPage({ meditation3 }) { const [meditationData1
             <Legend />
             <Bar dataKey="count" fill="#8884d8" />
         </BarChart>
-    <Link href="/">Back to home</Link>
     );
 };
 

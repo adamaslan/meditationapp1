@@ -53,7 +53,7 @@ export default function Home() {
             <p>Our most fun new feature</p>
           </a>
 
-          <a href="/posts/anothergraph" className="card">
+          <a href="/posts/anothergraph2.js" className="card">
             <h3>More Graphs &rarr;</h3>
             <p>Fun Fun Fun</p>
           </a>
