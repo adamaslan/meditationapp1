@@ -28,12 +28,7 @@ export default function MeditationPage({ meditation3 }) {
     acc[dayOfWeek] = acc[dayOfWeek] ? acc[dayOfWeek] + curr.increment : curr.increment;
     return acc;
   }, {});
-console.log(dataByDayOfWeek);
-  // const dataByDayOfWeek = data.reduce((acc, { date, increment }) => {
-  //   const dayOfWeek = date.getDay();
-  //   acc[dayOfWeek] = (acc[dayOfWeek] || 0) + increment;
-  //   return acc;
-  // }, []);
+
 
 
   const dayOfWeekTotals = [
