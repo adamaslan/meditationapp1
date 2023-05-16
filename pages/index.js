@@ -53,14 +53,14 @@ export default function Home() {
             <p>Our most fun new feature</p>
           </a>
 
-          <a href="/posts/anothergraph.js" className="card">
+          <a href="/posts/anothergraph" className="card">
             <h3>More Graphs &rarr;</h3>
             <p>Fun Fun Fun</p>
           </a>
 
-          <a href="/posts/pastfeatures" className="card">
+          <a href="/posts/owngraph" className="card">
             <h3>Past Features &rarr;</h3>
-            <p>Explore Past Features</p>
+            <p>Make your own graph</p>
           </a>
           <a href="/posts/recharts-month" className="card">
             <h3>Monthly percentage &rarr;</h3>
