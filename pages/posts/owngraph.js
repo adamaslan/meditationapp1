@@ -114,7 +114,7 @@ function DisplayGraphByDay({ data }) {
     );
 }
 
-function App() {
+export default function nugraph() {
     const [data, setData] = useState([]);
 
     return (
