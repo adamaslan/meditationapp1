@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import ReactFileReader from 'react-file-reader';
 import Papa from 'papaparse';
 
 function UploadCSV({ setData }) {
-    const handleFiles = files => {
+    // Create a ref for the input element
+    const fileInput = React.createRef();
+
+    const handleFiles = (files) => {
         var reader = new FileReader();
         reader.onload = function(e) {
             // Use reader.result
@@ -15,19 +18,20 @@ function UploadCSV({ setData }) {
         reader.readAsText(files[0]);
 
         // Check if the input ref is null
-        const inputRef = this.fileInput.current;
+        const inputRef = fileInput.current;
         if (inputRef) {
             // Clear the input value
             inputRef.value = '';
         }
     }
 
-
     return (
         <div>
             <h2>Upload CSV File</h2>
             <ReactFileReader handleFiles={handleFiles} fileTypes={'.csv'}>
                 <button className='btn'>Upload</button>
+                {/* Pass the ref to the input element */}
+                <input type="file" ref={fileInput} style={{display: 'none'}} />
             </ReactFileReader>
         </div>
     );
@@ -110,7 +114,7 @@ function DisplayGraphByDay({ data }) {
     );
 }
 
-export default function nuApp() {
+function App() {
     const [data, setData] = useState([]);
 
     return (
