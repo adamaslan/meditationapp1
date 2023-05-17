@@ -59,7 +59,7 @@ export default function Home() {
           </a>
 
           <a href="/posts/owngraph" className="card">
-            <h3>Past Features &rarr;</h3>
+            <h3>NU Feature! &rarr;</h3>
             <p>Make your own graph</p>
           </a>
           <a href="/posts/recharts-month" className="card">
