@@ -103,7 +103,7 @@ export default function Home() {
         }
 
         main {
-          padding: 5rem 0;
+          padding: 3rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -171,13 +171,13 @@ export default function Home() {
           justify-content: center;
           flex-wrap: wrap;
 
-          max-width: 600px;
+          max-width: 800px;
           margin-top: 3rem;
         }
 
         .card {
           margin: 1rem;
-          flex-basis: 45%;
+          flex-basis: 65%;
           padding: 1.5rem;
           text-align: left;
           color: inherit;
