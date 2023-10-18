@@ -3,7 +3,7 @@ import {useDropzone}from 'react-dropzone';
 // import ReactFileReader from 'react-file-reader';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import Papa from 'papaparse';
-import styles from '../../styles/more.css';
+// import styles from '../../styles/more.css';
 
 
 function UploadCSV({ setData }) {
