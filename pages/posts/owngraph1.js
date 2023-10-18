@@ -1,44 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import {useDropzone}from 'react-dropzone';
-// import ReactFileReader from 'react-file-reader';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
+import ReactFileReader from 'react-file-reader';
 import Papa from 'papaparse';
-import styles from '../../styles/more.css';
+import  Dropzone  from 'react-dropzone';
 
+const UploadCSV =({ setData }) => {
+    // Create a ref for the input element
+    const fileInput = React.createRef();
 
-function UploadCSV({ setData }) {
-  const [handleDrop, setHandleDrop] = useState(() => {
-    const _handleDrop = (acceptedFiles) => {
-      const file = acceptedFiles[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        // Use reader.result
-        const csv = reader.result;
-        const parsedData = Papa.parse(csv).data;
-        setData(parsedData);
-      }
-      reader.readAsText(file);
+    // Create a state variable to store the dropped files
+    const [files, setFiles] = useState([]);
+
+    const handleDrop = (acceptedFiles) => {
+        // Set the dropped files state
+        setFiles(acceptedFiles);
     };
 
-    return _handleDrop;
-  });
+    const handleFiles = (files) => {
+        if (files.length > 0) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // Use reader.result
+                const csv = reader.result;
+                const parsedData = Papa.parse(csv).data;
+                setData(parsedData);
+            }
+            reader.readAsText(files[0]);
+        }
+    };
 
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    onDrop: handleDrop,
-  });
+    return (
+        <div>
+            <h2>Upload CSV File</h2>
+            <Dropzone onDrop={handleDrop} multiple={false}>
+                <div className="dropzone">
+                    <p>Drop your CSV file here</p>
+                </div>
+            </Dropzone>
 
-  return (
-    <div>
-      <h2>Upload CSV File</h2>
-      <div className='dropzone' {...getRootProps()}>
-        <input {...getInputProps()} />
-        <p className='dropzone' >Drag 'n' drop some files here, or click to select files</p>
-      </div>
-    </div>
-  );
+            <ReactFileReader handleFiles={handleFiles} fileTypes={'.csv'}>
+                <button className='btn'>Upload</button>
+                {/* Pass the ref to the input element */}
+                <input type="file" ref={fileInput} style={{display: 'none'}} />
+            </ReactFileReader>
+        </div>
+    );
 }
-
-function DisplayGraphByHour({ data }) {
+const DisplayGraphByHour =({ data }) => {
     // Prepare data for the bar chart
     // Assuming the first row of the csv file is the header
     const chartData = data.slice(1).map(row => ({
@@ -74,7 +82,7 @@ function DisplayGraphByHour({ data }) {
     );
 }
 
-function DisplayGraphByDay({ data }) {
+const DisplayGraphByDay = ({ data }) => {
     // Prepare data for the bar chart
     // Assuming the first row of the csv file is the header
     const chartData = data.slice(1).map(row => ({
@@ -105,7 +113,7 @@ function DisplayGraphByDay({ data }) {
             <h2>Checkins by Day of Week</h2>
             <BarChart width={1160} height={500} data={dayOfWeekTotals}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="dayOfWeek" tickFormatter={(dayOfWeek) => dayOfWeekTotals.find((item) => item.dayOfWeek === dayOfWeek).dayOfWeekName} />
+                <XAxis dataKey="dayOfWeek" tickFormatter={(dayOfWeek) => dayOfWeekTotals.find((item) => item.dayOfWeek === String(dayOfWeek)).dayOfWeekName} />
                 <YAxis />
                 <Tooltip />
                 <Legend />
@@ -121,16 +129,12 @@ export default function nugraph() {
     return (
         <div className="App">
             <UploadCSV setData={setData} />
-           
             {data.length > 0 && (
                 <>
                     <DisplayGraphByHour data={data} />
                     <DisplayGraphByDay data={data} />
                 </>
             )}
-
-
-
         </div>
     );
 }

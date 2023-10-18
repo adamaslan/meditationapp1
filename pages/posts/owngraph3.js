@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import {useDropzone}from 'react-dropzone';
-// import ReactFileReader from 'react-file-reader';
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
+import ReactFileReader from 'react-file-reader';
 import Papa from 'papaparse';
-import styles from '../../styles/more.css';
-
+import { DragDropFiles } from 'react-drag-drop-files';
 
 function UploadCSV({ setData }) {
-  const [handleDrop, setHandleDrop] = useState(() => {
-    const _handleDrop = (acceptedFiles) => {
-      const file = acceptedFiles[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        // Use reader.result
-        const csv = reader.result;
-        const parsedData = Papa.parse(csv).data;
-        setData(parsedData);
-      }
-      reader.readAsText(file);
-    };
+    // Create a ref for the input element
+    const fileInput = React.createRef();
 
-    return _handleDrop;
-  });
+    const handleFiles = (files) => {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            // Use reader.result
+            const csv = reader.result;
+            const parsedData = Papa.parse(csv).data;
+            setData(parsedData);
+        }
+        reader.readAsText(files[0]);
 
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    onDrop: handleDrop,
-  });
+        // Check if the input ref is null
+        const inputRef = fileInput.current;
+        if (inputRef) {
+            // Clear the input value
+            inputRef.value = '';
+        }
+    }
 
-  return (
-    <div>
-      <h2>Upload CSV File</h2>
-      <div className='dropzone' {...getRootProps()}>
-        <input {...getInputProps()} />
-        <p className='dropzone' >Drag 'n' drop some files here, or click to select files</p>
-      </div>
-    </div>
-  );
+    return (
+        <div>
+            <h2>Upload CSV File</h2>
+            <ReactFileReader handleFiles={handleFiles} fileTypes={'.csv'}>
+                <button className='btn'>Upload</button>
+                {/* Pass the ref to the input element */}
+                <input type="file" ref={fileInput} style={{display: 'none'}} />
+            </ReactFileReader>
+        </div>
+    );
 }
 
 function DisplayGraphByHour({ data }) {
@@ -128,9 +128,6 @@ export default function nugraph() {
                     <DisplayGraphByDay data={data} />
                 </>
             )}
-
-
-
         </div>
     );
 }
