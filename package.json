@@ -29,6 +29,7 @@
     "recharts": "^2.5.0"
   },
   "devDependencies": {
+    "@types/react": "19.2.14",
     "eslint": "7.31.0",
     "eslint-config-next": "^13.0.0",
     "prisma": "^4.9.0"
